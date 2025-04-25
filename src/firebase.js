@@ -20,4 +20,4 @@ const auth = getAuth(app);
 const firestore = getFirestore(app);  // Configurando o Firestore
 const analytics = getAnalytics(app);
 
-export { auth, firestore };  // Exportando o firestore
+export { auth, firestore, firebaseConfig };  // Exportando o firestore
