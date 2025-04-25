@@ -4,12 +4,13 @@ import { doc, getDoc } from 'firebase/firestore';
 import { signOut } from 'firebase/auth';
 import { DashboardContainer, Logo, Header, Menu, MenuItem, Content } from '../components/Dashboard.styles';
 import { useTheme } from 'styled-components';
-
+import UsersPage from './UsersPage'; // Adicionando o componente de usuários, que você pode implementar ou já ter implementado
 
 const Dashboard = () => {
   const [role, setRole] = useState(null);
   const [loading, setLoading] = useState(true);
   const [deferredPrompt, setDeferredPrompt] = useState(null);
+  const [activeSection, setActiveSection] = useState('overview'); // Controle de seção ativa
   const theme = useTheme();
 
   useEffect(() => {
@@ -72,6 +73,10 @@ const Dashboard = () => {
     }
   };
 
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
+  };
+
   if (loading) return <div>Carregando...</div>;
 
   if (role !== 'super_user') {
@@ -84,17 +89,25 @@ const Dashboard = () => {
       <Header>Bem-vindo ao Dashboard - Super Usuário</Header>
 
       <Menu>
-        <MenuItem>Usuários</MenuItem>
-        <MenuItem>Configurações</MenuItem>
-        <MenuItem>Relatórios</MenuItem>
+        <MenuItem onClick={() => handleSectionChange('overview')}>Visão Geral</MenuItem>
+        <MenuItem onClick={() => handleSectionChange('users')}>Usuários</MenuItem>
+        <MenuItem onClick={() => handleSectionChange('settings')}>Configurações</MenuItem>
+        <MenuItem onClick={() => handleSectionChange('reports')}>Relatórios</MenuItem>
         {deferredPrompt && <MenuItem onClick={handleInstall}>Instalar App</MenuItem>}
         <MenuItem onClick={handleLogout}>Sair</MenuItem>
       </Menu>
 
       <Content>
-        <h2>Visão Geral</h2>
-        <p>Bem-vindo ao painel principal do super usuário!</p>
-        <p>Aqui você pode gerenciar todas as configurações do sistema.</p>
+        {activeSection === 'overview' && (
+          <>
+            <h2>Visão Geral</h2>
+            <p>Bem-vindo ao painel principal do super usuário!</p>
+            <p>Aqui você pode gerenciar todas as configurações do sistema.</p>
+          </>
+        )}
+        {activeSection === 'users' && <UsersPage />} {/* Tela de usuários */}
+        {activeSection === 'settings' && <div>Configurações</div>}
+        {activeSection === 'reports' && <div>Relatórios</div>}
       </Content>
     </DashboardContainer>
   );
