@@ -1,70 +1,84 @@
-# Getting Started with Create React App
+📸 PhotoFlow
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+PhotoFlow é uma aplicação web feita em React com foco no agendamento de serviços fotográficos, especialmente para fotografia de imóveis. A ferramenta foi criada para otimizar e automatizar o processo de agendamento entre empresas e equipes de fotógrafos, permitindo que clientes escolham horários disponíveis sem depender de ligações manuais.
 
-## Available Scripts
+✨ Principais Recursos
 
-In the project directory, you can run:
+Autenticação com Firebase Authentication
 
-### `npm start`
+Controle de acesso por tipo de usuário (Cliente, Fotógrafo, Admin, Super)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Agendamento inteligente de serviços
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Dashboard exclusivo por perfil de usuário
 
-### `npm test`
+Gerenciamento de usuários com ativação/inativação
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+PWA (Progressive Web App) com ícone e nome personalizados
 
-### `npm run build`
+Tema global e componentes estilizados com styled-components
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Arquitetura escalável para múltiplas empresas
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+🚀 Tecnologias Utilizadas
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+React.js
 
-### `npm run eject`
+Firebase (Auth + Firestore)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+React Router
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Styled-Components
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Lucide React
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Vite (futuramente planejado)
 
-## Learn More
+🔐 Perfis de Usuário
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+super_user: Acesso completo ao sistema, gerenciamento de admins e configurações gerais
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+admin: Gerencia usuários e agendas de uma empresa específica
 
-### Code Splitting
+fotografo: Visualiza seus próprios agendamentos e confirma presença
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+cliente: Agenda serviços conforme disponibilidade e acompanha status
 
-### Analyzing the Bundle Size
+📦 Organização do Projeto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+photoflow/
+├── public/
+│   └── icons/                # Ícones para instalação PWA
+├── src/
+│   ├── components/           # Componentes reutilizáveis e estilizações
+│   ├── pages/                # Páginas principais (Dashboard, Users, etc)
+│   ├── firebase.js           # Configuração do Firebase
+│   ├── App.js                # Roteamento e controle de autenticação
+│   ├── theme/                # Tema global do projeto
+│   └── index.js
+├── .gitignore
+├── package.json
+└── README.md
 
-### Making a Progressive Web App
+⚙️ Como Rodar o Projeto
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+# Clone o repositório
+git clone https://github.com/MumaVendramini/photoflow.git
 
-### Advanced Configuration
+# Acesse o diretório
+cd photoflow
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+# Instale as dependências
+npm install
 
-### Deployment
+# Rode o projeto em ambiente de desenvolvimento
+npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+💪 Roadmap (Tarefas)
 
-### `npm run build` fails to minify
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+💬 Contato
+
+Desenvolvido por Muma VendraminiEntre em contato via GitHub ou LinkedIn.
+
