@@ -1,22 +1,22 @@
 // src/routes/Routes.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from '../pages/Login';
 import Dashboard from '../pages/Dashboard';
-import UserFormPage from './pages/UserFormPage';
+import UserFormPage from '../pages/UserFormPage';
+import AdminDashboard from '../pages/AdminDashboard';
 
-const AppRoutes = () => {
-  const isAuthenticated = !!localStorage.getItem('user'); // Exemplo básico
-
+const AppRoutes = ({ user }) => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={isAuthenticated ? <Navigate to="/dashboard" /> : <Login />} />
-        <Route path="/dashboard" element={isAuthenticated ? <Dashboard /> : <Navigate to="/" />} />
-        <Route path="/usuarios/novo" element={<UserFormPage />} />
-        <Route path="/usuarios/editar" element={<UserFormPage />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={user ? <Navigate to="/dashboard/super_user" /> : <Login />} />
+      <Route path="/dashboard/super_user" element={<Dashboard />} />
+      <Route path="/dashboard/fotografo" element={<div>Fotógrafo Dashboard</div>} />
+      <Route path="/dashboard/cliente" element={<div>Cliente Dashboard</div>} />
+      <Route path="/dashboard/admin" element={<AdminDashboard />} />
+      <Route path="/usuarios/novo" element={<UserFormPage />} />
+      <Route path="/usuarios/editar" element={<UserFormPage />} />
+    </Routes>
   );
 };
 

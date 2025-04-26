@@ -22,7 +22,13 @@ const theme = {
     gray: "#E4E7EC",             // hover cinza
     grayLight: "#F1F3F5",  
     
-    greenLogo : '#66D2CD' // cor verde do logo
+    greenLogo: '#66D2CD',        // cor verde do logo
+
+    // NOVO - para a sidebar
+    sidebarBackground: "#F1F3F5",  // cor de fundo da sidebar
+    sidebarText: "#101B34",        // cor do texto da sidebar
+    sidebarHover: "#4B7EFF",       // cor de hover na sidebar
+    sidebarItemActive: "#EA5455",  // cor para item ativo na sidebar
   },
   font: "Roboto, sans-serif",
   shadow: "0 4px 12px rgba(0, 0, 0, 0.08)" // sombra padrão para cards e modais

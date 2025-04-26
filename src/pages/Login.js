@@ -95,13 +95,16 @@ const Login = () => {
         const userData = userDoc.data();
         const role = userData.role;
 
+      
+        console.log("Role do usuário logado:", role);
+
         // Redireciona de acordo com o role
-        if (role === 'super_usuario') {
+        if (role === 'super_user') {
           navigate('/dashboard/super_user');  // Redireciona para o dashboard do super_user
         } else if (role === 'fotografo') {
           navigate('/dashboard/fotografo');  // Redireciona para o dashboard do fotógrafo
-        } else if (role === 'cliente') {
-          navigate('/dashboard/cliente');  // Redireciona para o dashboard do cliente
+        } else if (role === 'admin') {
+          navigate('/dashboard/admin');  // Redireciona para o dashboard do cliente
         } else {
           setError('Acesso não autorizado!');
         }
