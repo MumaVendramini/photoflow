@@ -2,18 +2,19 @@
 import React, { useEffect, useState } from 'react';
 import { firestore, auth } from '../firebase';
 import { doc, getDoc } from 'firebase/firestore';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { PageContainer, ContentArea } from '../components/AdminDashboard.styles';
 
 const AdminDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggleCollapse = () => setCollapsed(!collapsed);
+  const [collapsed, setCollapsed] = useState(true); // já inicia colapsado
 
   const navigate = useNavigate();
+  const location = useLocation(); // pra saber em que rota está
+
+  const toggleCollapse = () => setCollapsed(!collapsed);
 
   useEffect(() => {
     const checkAdminRole = async () => {
@@ -54,8 +55,12 @@ const AdminDashboard = () => {
     <PageContainer>
       <Sidebar collapsed={collapsed} toggleCollapse={toggleCollapse} />
       <ContentArea>
-        <h1>Bem-vindo ao Dashboard do Admin!</h1>
-        {/* Aqui virão os cards com mapa, agenda, clientes ativos etc. */}
+        {/* Se for rota raiz do admin, mostra o H1 */}
+        {location.pathname === '/dashboard/admin' && (
+          <h1>Bem-vindo ao Dashboard do Admin!</h1>
+        )}
+        {/* Aqui renderiza as páginas internas como Agenda, Mapa, Perfil, etc */}
+        <Outlet />
       </ContentArea>
     </PageContainer>
   );
