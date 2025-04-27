@@ -80,7 +80,23 @@ const Dashboard = () => {
   if (loading) return <div>Carregando...</div>;
 
   if (role !== 'super_user') {
-    return <div>Você não tem permissão para acessar esse dashboard.</div>;
+    return <div style={{ padding: '2rem', textAlign: 'center' }}>
+      <h2>Você não tem permissão para acessar esse dashboard.</h2>
+      <button
+        onClick={handleLogout}
+        style={{
+          marginTop: '1rem',
+          padding: '10px 20px',
+          backgroundColor: '#d32f2f',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '6px',
+          cursor: 'pointer'
+        }}
+      >
+        Sair
+      </button>
+    </div>;
   }
 
   return (
