@@ -1,15 +1,11 @@
 const CONFIG = {
-    GOOGLE_CLIENT_ID: "319870731233-s6cpfs2on1etjgnevr40salhq2cd9mpn.apps.googleusercontent.com",
-    GOOGLE_PROJECT_ID: "photoflow-admfotografos",
-    GOOGLE_AUTH_URI: "https://accounts.google.com/o/oauth2/auth",
-    GOOGLE_TOKEN_URI: "https://oauth2.googleapis.com/token",
-    GOOGLE_AUTH_PROVIDER_X509_CERT_URL: "https://www.googleapis.com/oauth2/v1/certs",
-    GOOGLE_CLIENT_SECRET: "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",
-    GOOGLE_REDIRECT_URIS: [
-        "http://localhost:3000",
-        "http://localhost:3000/auth/google/callback"
-    ]
-};   
-  
+    GOOGLE_CLIENT_ID: process.env.REACT_APP_GOOGLE_CLIENT_ID,
+    GOOGLE_PROJECT_ID: process.env.REACT_APP_GOOGLE_PROJECT_ID,
+    GOOGLE_AUTH_URI: process.env.REACT_APP_GOOGLE_AUTH_URI,
+    GOOGLE_TOKEN_URI: process.env.REACT_APP_GOOGLE_TOKEN_URI,
+    GOOGLE_AUTH_PROVIDER_X509_CERT_URL: process.env.REACT_APP_GOOGLE_AUTH_PROVIDER_X509_CERT_URL,
+    GOOGLE_CLIENT_SECRET: process.env.REACT_APP_GOOGLE_CLIENT_SECRET,
+    GOOGLE_REDIRECT_URIS: process.env.REACT_APP_GOOGLE_REDIRECT_URIS.split(',')
+};
+
 export default CONFIG;
-  
