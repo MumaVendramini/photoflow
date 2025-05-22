@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
 
-export const AgendaContainer = styled.div`
-  padding: 2rem;
-  max-width: 100%;
-  margin: 0 auto;
+export const AgendaContainer = styled.div`  
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* Ocupa 100% da altura da tela */
+  overflow: hidden;
 `;
 
 export const AgendaHeader = styled.div`
@@ -63,7 +64,9 @@ export const CalendarPopup = styled.div`
 export const CalendarContainer = styled.div`
   display: flex;
   flex-direction: column;
-  overflow-x: auto; /* Permitir rolagem horizontal */
+  flex: 1; /* ocupa todo o espaço restante */
+  min-height: 0; /* impede overflow automático */
+  overflow-y: auto;
   width: 100%;
 `;
 
@@ -136,8 +139,10 @@ export const CalendarBody = styled.div`
   gap: 1px;
   width: 100%;
   overflow-x: auto;
-  height: 100%;
+  flex: 1;
+  min-height: 0;
   padding: 10px;
+  align-items: baseline;
 `;
 
 export const GridContainer = styled.div`

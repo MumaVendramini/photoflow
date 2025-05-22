@@ -5,16 +5,15 @@ import { doc, getDoc } from 'firebase/firestore';
 import { useNavigate, Outlet, useLocation } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import { PageContainer, ContentArea } from '../components/AdminDashboard.styles';
+import { MenuIcon } from 'lucide-react';
 
 const AdminDashboard = () => {
   const [isAdmin, setIsAdmin] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [collapsed, setCollapsed] = useState(true); // já inicia colapsado
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation(); // pra saber em que rota está
-
-  const toggleCollapse = () => setCollapsed(!collapsed);
+  const location = useLocation(); // pra saber em que rota está  
 
   useEffect(() => {
     const checkAdminRole = async () => {
@@ -52,17 +51,33 @@ const AdminDashboard = () => {
   if (!isAdmin) return null;
 
   return (
-    <PageContainer>
-      <Sidebar collapsed={collapsed} toggleCollapse={toggleCollapse} />
-      <ContentArea>
-        {/* Se for rota raiz do admin, mostra o H1 */}
+    <>
+      {/* Botão flutuante para abrir o menu */}
+      <button
+        onClick={() => setMenuOpen(true)}
+        style={{
+          position: 'fixed',
+          top: 20,
+          left: 20,
+          zIndex: 1100,
+          background: 'transparent',
+          border: 'none',
+          cursor: 'pointer'
+        }}
+      >
+        <MenuIcon size={28} color="#333" />
+      </button>
+
+      {/* Sidebar como modal */}
+      <Sidebar open={menuOpen} onClose={() => setMenuOpen(false)} />
+
+      <main style={{ padding: '2rem 0.5rem' }}>
         {location.pathname === '/dashboard/admin' && (
           <h1>Bem-vindo ao Dashboard do Admin!</h1>
         )}
-        {/* Aqui renderiza as páginas internas como Agenda, Mapa, Perfil, etc */}
         <Outlet />
-      </ContentArea>
-    </PageContainer>
+      </main>
+    </>
   );
 };
 
