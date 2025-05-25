@@ -100,7 +100,7 @@ export const HourLabel = styled.div`
 export const AvatarList = styled.div`
   display: flex;
   width: 100%;
-  height: 9vh;
+  height: 100%;
 
   > div {    
     text-align: top;
@@ -159,7 +159,7 @@ export const TimeColumn = styled.div`
   color: #999;
   > div {
     border-bottom: 1px solid ${({ theme }) => theme.colors.border || '#ddd'};
-    height: min(4vh, 22px); /* Altura mínima de 10px, ajusta com o aumento da tela */       
+    height: 25px;
     display: flex;
     align-items: center;
   }
@@ -188,6 +188,9 @@ export const EventBlock = styled.div`
   color: white;
   display: flex;
   align-items: center;
+  justify-content: start;
+  min-height: 25px;
+  box-sizing: border-box;
   height: 100%;
 `;
 

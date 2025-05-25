@@ -67,3 +67,9 @@ export const ForgotPasswordButton = styled.button`
     text-decoration: underline;
   }
 `;
+export const Footer = styled.div`
+  margin-top: 24px;
+  font-size: 12px;
+  color: #888;
+  font-family: ${({ theme }) => theme.font};
+`;

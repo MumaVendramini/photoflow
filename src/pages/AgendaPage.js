@@ -37,15 +37,24 @@ const photographers = [
   { id: 5, name: 'Rafael Lima', avatar: 'https://i.pravatar.cc/150?img=5' }
 ];
 
-const times = Array.from({ length: 21 }, (_, i) => {
-  const hours = Math.floor((480 + i * 30) / 60);
-  const minutes = (480 + i * 30) % 60;
+const interval = 30; // minutos
+const startHour = 9;
+const startMinute = 30;
+const endHour = 17;
+
+const totalSlots = ((endHour * 60) - (startHour * 60 + startMinute)) / interval + 1;
+
+const times = Array.from({ length: totalSlots }, (_, i) => {
+  const minutesFromStart = i * interval;
+  const totalMinutes = startHour * 60 + startMinute + minutesFromStart;
+  const hours = Math.floor(totalMinutes / 60);
+  const minutes = totalMinutes % 60;
   return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`;
 });
 
 const events = [
-  { id: 1, photographerId: 1, time: '08:00', timeEnd: '09:00', title: 'Ensaio na Av. Paulista', icon: '📷' },
-  { id: 2, photographerId: 1, time: '09:00', timeEnd: '12:00', title: 'Editorial Lookbook', icon: '📸' },
+  { id: 1, photographerId: 1, time: '15:00', timeEnd: '16:00', title: 'Ensaio na Av. Paulista', icon: '📷' },
+  { id: 2, photographerId: 1, time: '09:30', timeEnd: '12:00', title: 'Editorial Lookbook', icon: '📸' },
   { id: 3, photographerId: 2, time: '10:30', timeEnd: '14:00', title: 'Vídeo - Ap B', color: '#36A2EB' },
   { id: 4, photographerId: 3, time: '10:00', timeEnd: '14:00', title: 'Drone - Sítio X', color: '#FFCE56' },
 ];
@@ -164,6 +173,7 @@ export default function AgendaPage({ children }) {
                       );
                     }
 
+                    // Verifica se esse slot já foi coberto por outro evento
                     const isCovered = events.some((e) => {
                       const start = times.findIndex((t) => t === e.time);
                       const end = times.findIndex((t) => t === e.timeEnd);
@@ -179,7 +189,8 @@ export default function AgendaPage({ children }) {
                     return <EmptyCell key={time} />;
                   })}
                 </PhotographerColumn>
-              ))}
+))}
+
             </GridContainer>
           </CalendarBody>
         </CalendarContainer>
