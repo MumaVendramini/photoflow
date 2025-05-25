@@ -74,6 +74,14 @@ const InputGroup = styled.div`
   align-items: flex-end;
 `;
 
+const Footer = styled.div`
+  margin-top: 24px;
+  font-size: 12px;
+  color: #888;
+  font-family: ${({ theme }) => theme.font};
+`;
+
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -157,6 +165,8 @@ const Login = () => {
         </form>
 
         {error && <ErrorText>{error}</ErrorText>}
+
+        <Footer>Versão - 20250525</Footer>
       </LoginBox>
     </Container>
   );

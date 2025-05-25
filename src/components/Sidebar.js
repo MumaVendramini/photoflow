@@ -1,48 +1,43 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { MenuIcon, CalendarDays, MapPin, FileText, Users, UserCircle, LogOut } from 'lucide-react';
+import { MenuIcon, CalendarDays, MapPin, FileText, Users, UserCircle, LogOut, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-
-import { Modal, Button } from 'react-bootstrap'; // ou qualquer outro componente de modal
-
+import { Modal } from 'react-bootstrap';
 import { auth } from '../firebase';
 
-const SidebarContainer = styled.div`
-  width: ${({ collapsed }) => (collapsed ? '60px' : '200px')};
-  background-color: ${({ theme }) => theme.colors.surface};
-  transition: width 0.3s ease;
+const SidebarOverlay = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
   height: 100vh;
-  padding: 16px 8px;
+  background: rgba(0,0,0,0.4);
+  display: ${({ open }) => (open ? 'flex' : 'none')};
+  z-index: 1000;
+`;
+
+const SidebarContainer = styled.div`
+  width: 250px;
+  background-color: ${({ theme }) => theme.colors.surface};
+  height: 100%;
+  padding: 16px;
   box-shadow: ${({ theme }) => theme.shadow};
   display: flex;
   flex-direction: column;
-`;
-
-const CollapseButton = styled.div`
-  cursor: pointer;
-  display: flex;
-  justify-content: ${({ collapsed }) => (collapsed ? 'center' : 'flex-start')};
-  margin-bottom: 20px;
-`;
-
-const Logo = styled.img`
-  width: ${({ collapsed }) => (collapsed ? '40px' : '120px')};
-  transition: width 0.3s ease;
-  margin: 0 auto 30px auto;
-  display: block;
 `;
 
 const Menu = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+  margin-top: 2rem;
 `;
 
 const MenuItem = styled.div`
   display: flex;
   align-items: center;
-  gap: ${({ collapsed }) => (collapsed ? '0' : '12px')};
-  padding: 8px;
+  gap: 12px;
+  padding: 10px;
   border-radius: 8px;
   cursor: pointer;
   transition: background 0.2s;
@@ -59,13 +54,16 @@ const MenuItem = styled.div`
   }
 
   span {
-    display: ${({ collapsed }) => (collapsed ? 'none' : 'inline')};
     font-size: 14px;
   }
 `;
 
-const Sidebar = ({ collapsed, toggleCollapse }) => {
-  const [showModal, setShowModal] = useState(false);
+const CloseButton = styled.div`
+  align-self: flex-end;
+  cursor: pointer;
+`;
+
+const Sidebar = ({ open, onClose }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -76,64 +74,46 @@ const Sidebar = ({ collapsed, toggleCollapse }) => {
     });
   };
 
-  const handleConfirmLogout = () => setShowModal(true);
-  const handleCancelLogout = () => setShowModal(false);
-
   return (
-    <SidebarContainer collapsed={collapsed}>
-      <CollapseButton onClick={toggleCollapse} collapsed={collapsed}>
-        <MenuIcon />
-      </CollapseButton>
-      <Logo
-        src="/assets/LogoPhotoFlow.png"
-        alt="Logo"
-        collapsed={collapsed}
-        onClick={() => navigate('/dashboard/admin')}
-        style={{ cursor: 'pointer' }}
-      />
-      <Menu>
-        <MenuItem collapsed={collapsed} onClick={() => navigate('/dashboard/admin/agenda')}>
-          <CalendarDays />
-          <span>Agenda</span>
-        </MenuItem>
+    <SidebarOverlay open={open}>
+      <SidebarContainer>
+        <CloseButton onClick={onClose}>
+          <X />
+        </CloseButton>
 
-        <MenuItem collapsed={collapsed} onClick={() => navigate('/dashboard/admin/mapa')}>
-          <MapPin />
-          <span>Mapa</span>
-        </MenuItem>
+        <Menu>
+          <MenuItem onClick={() => { navigate('/dashboard/admin/agenda'); onClose(); }}>
+            <CalendarDays />
+            <span>Agenda</span>
+          </MenuItem>
 
-        <MenuItem collapsed={collapsed} onClick={() => navigate('/dashboard/admin/contratos')}>
-          <FileText />
-          <span>Contratos</span>
-        </MenuItem>
+          <MenuItem onClick={() => { navigate('/dashboard/admin/mapa'); onClose(); }}>
+            <MapPin />
+            <span>Mapa</span>
+          </MenuItem>
 
-        <MenuItem collapsed={collapsed} onClick={() => navigate('/dashboard/admin/clientes')}>
-          <Users />
-          <span>Clientes</span>
-        </MenuItem>
-        <MenuItem collapsed={collapsed} onClick={() => navigate('/dashboard/admin/perfil')}>
-          <UserCircle />
-          <span>Perfil</span>
-        </MenuItem>
-        {/* Adicionando o botão de logout */}
-        <MenuItem collapsed={collapsed} onClick={handleConfirmLogout}>
-          <LogOut />
-          <span>Sair</span>
-        </MenuItem>
-      </Menu>
+          <MenuItem onClick={() => { navigate('/dashboard/admin/contratos'); onClose(); }}>
+            <FileText />
+            <span>Contratos</span>
+          </MenuItem>
 
-      {/* Modal de Confirmação de Logout */}
-      <Modal show={showModal} onHide={handleCancelLogout}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmar Logout</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Tem certeza de que deseja sair?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCancelLogout}>Cancelar</Button>
-          <Button variant="primary" onClick={handleLogout}>Confirmar</Button>
-        </Modal.Footer>
-      </Modal>
-    </SidebarContainer>
+          <MenuItem onClick={() => { navigate('/dashboard/admin/clientes'); onClose(); }}>
+            <Users />
+            <span>Clientes</span>
+          </MenuItem>
+
+          <MenuItem onClick={() => { navigate('/dashboard/admin/perfil'); onClose(); }}>
+            <UserCircle />
+            <span>Perfil</span>
+          </MenuItem>
+
+          <MenuItem onClick={() => { handleLogout(); onClose(); }}>
+            <LogOut />
+            <span>Sair</span>
+          </MenuItem>
+        </Menu>
+      </SidebarContainer>
+    </SidebarOverlay>
   );
 };
 
